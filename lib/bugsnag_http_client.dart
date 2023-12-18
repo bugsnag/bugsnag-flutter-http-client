@@ -13,8 +13,9 @@ class BugSnagHttpClient extends http.BaseClient{
 
   BugSnagHttpClient({http.Client? client}) : _client = client ?? http.Client();
 
-  void withSubscriber(dynamic Function(dynamic) callback) {
+  BugSnagHttpClient withSubscriber(dynamic Function(dynamic) callback) {
     _subscriber = callback;
+    return this;
   }
 
   String _sendRequestStartNotification() {

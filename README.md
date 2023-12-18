@@ -1,25 +1,29 @@
-A wrapper for the [dar http package](https://pub.dev/packages/http) that enables automated instrumentation via the BugSnag performance SDK and error monitoring SDK.
+# BugSnagHttpClient
+
+A wrapper for the [Dart HTTP package](https://pub.dev/packages/http) that enables automated instrumentation via the BugSnag Performance SDK and Error Monitoring SDK. This package simplifies the process of tracking and monitoring HTTP requests in your Dart applications.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- **Automated Request Instrumentation**: Automatically creates network spans for HTTP requests and sends them to the BugSnag Performance dashboard.
 
-## Getting started
+## Getting Started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To use the `BugSnagHttpClient` wrapper in your Dart project, first add the dependency to your `pubspec.yaml` file:
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  bugsnag_http_client: ^1.0.0 # Use the latest version
 ```
 
-## Additional information
+Then, run pub get in your terminal to fetch the package.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## Usage
+Here's a simple example of using BugSnagHttpClient:
+
+```dart
+import 'package:bugsnag_http_client/bugsnag_http_client.dart';
+void main() async {
+var client = BugSnagHttpClient().withSubscriber(BugsnagPerformance.NetworkInstrumentation);
+var response = await client.get(Uri.parse('https://example.com'));
+}
+```
