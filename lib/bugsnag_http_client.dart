@@ -1,6 +1,5 @@
 library bugsnag_http_client;
 
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
@@ -29,6 +28,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   void _sendRequestCompleteNotification(String requestId, http.Response response) {
     _notifySubscriber({
+      "url": response.request!.url.toString(),
       "status": "complete",
       "status_code": response.statusCode.toString(),
       "request_id": requestId,
@@ -37,8 +37,9 @@ class BugSnagHttpClient extends http.BaseClient{
     });
   }
 
-  void _sendRequestFailedNotification(String requestId) {
+  void _sendRequestFailedNotification(String requestId, String url) {
     _notifySubscriber({
+      "url": url,
       "status": "failed",
       "request_id": requestId
     });
@@ -52,7 +53,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId, url.toString());
       rethrow;
     }
   }
@@ -65,7 +66,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId, url.toString());
       rethrow;
     }
   }
@@ -78,7 +79,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,url.toString());
       rethrow;
     }
   }
@@ -91,7 +92,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,url.toString());
       rethrow;
     }
   }
@@ -104,7 +105,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,url.toString());
       rethrow;
     }
   }
@@ -117,7 +118,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,url.toString());
       rethrow;
     }
   }
@@ -130,7 +131,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response.body;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,url.toString());
       rethrow;
     }
   }
@@ -143,7 +144,7 @@ class BugSnagHttpClient extends http.BaseClient{
       _sendRequestCompleteNotification(requestId, response);
       return response.bodyBytes;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,url.toString());
       rethrow;
     }
   }
@@ -174,7 +175,7 @@ class BugSnagHttpClient extends http.BaseClient{
       });
       return streamedResponse;
     } catch (e) {
-      _sendRequestFailedNotification(requestId);
+      _sendRequestFailedNotification(requestId ,request.url.toString());
       rethrow;
     }
   }
