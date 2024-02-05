@@ -17,11 +17,12 @@ class BugSnagHttpClient extends http.BaseClient{
     return this;
   }
 
-  String _sendRequestStartNotification() {
+  String _sendRequestStartNotification(String? method) {
     var requestId = _generateRequestId();
     _notifySubscriber({
       "status": "started",
-      "request_id": requestId
+      "request_id": requestId,
+      "http_method": method
     });
     return requestId;
   }
@@ -30,8 +31,9 @@ class BugSnagHttpClient extends http.BaseClient{
     _notifySubscriber({
       "url": response.request!.url.toString(),
       "status": "complete",
-      "status_code": response.statusCode.toString(),
+      "status_code": response.statusCode,
       "request_id": requestId,
+      "http_method": response.request!.method,
       "response_content_length": response.contentLength,
       "request_content_length": response.request!.contentLength
     });
@@ -47,7 +49,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("GET");
     try {
       var response = await _client.get(url, headers: headers);
       _sendRequestCompleteNotification(requestId, response);
@@ -60,7 +62,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.Response> post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding})  async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("POST");
     try {
       var response = await _client.post(url, headers: headers, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -73,7 +75,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.Response> put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("PUT");
     try {
       var response = await _client.put(url, headers: headers, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -86,7 +88,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.Response> delete(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding})  async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("DELETE");
     try {
       var response = await _client.delete(url, headers: headers, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -99,7 +101,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.Response> patch(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding})  async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("PATCH");
     try {
       var response = await _client.patch(url, headers: headers, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -112,7 +114,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.Response> head(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("HEAD");
     try {
       var response = await _client.head(url, headers: headers);
       _sendRequestCompleteNotification(requestId, response);
@@ -125,7 +127,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<String> read(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("READ");
     try {
       var response = await get(url, headers: headers);
       _sendRequestCompleteNotification(requestId, response);
@@ -138,7 +140,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification("READ");
     try {
       var response = await get(url, headers: headers);
       _sendRequestCompleteNotification(requestId, response);
@@ -159,7 +161,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
-    var requestId = _sendRequestStartNotification();
+    var requestId = _sendRequestStartNotification(request.method.toUpperCase());
     try {
       var streamedResponse = await _client.send(request);
       streamedResponse.stream.toBytes().then((bytes) {
