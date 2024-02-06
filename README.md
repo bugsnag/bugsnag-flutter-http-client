@@ -1,3 +1,5 @@
+# !This repo is a work in progress and has not yet been released as a useable package!
+
 # BugSnagHttpClient
 
 A wrapper for the [Dart HTTP package](https://pub.dev/packages/http) that enables automated instrumentation via the BugSnag Performance SDK and Error Monitoring SDK. This package simplifies the process of tracking and monitoring HTTP requests in your Dart applications.
