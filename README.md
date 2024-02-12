@@ -1,4 +1,4 @@
-# !This repo is a work in progress and has not yet been released as a useable package!
+# NOTE: This repo is a work in progress and has not yet been released as a production ready package.
 
 # BugSnagHttpClient
 
