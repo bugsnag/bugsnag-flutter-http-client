@@ -3,14 +3,19 @@ library bugsnag_http_client;
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'dart:math';
 import 'dart:convert';
 
 class BugSnagHttpClient extends http.BaseClient{
   final http.Client _client;
   dynamic Function(dynamic)? _subscriber;
+  int _requestId = 0;
 
   BugSnagHttpClient({http.Client? client}) : _client = client ?? http.Client();
+
+  String _generateRequestId() {
+    _requestId += 1;
+    return "$_requestId";
+  }
 
   BugSnagHttpClient withSubscriber(dynamic Function(dynamic) callback) {
     _subscriber = callback;
@@ -152,10 +157,6 @@ class BugSnagHttpClient extends http.BaseClient{
 
   void _notifySubscriber(Map<String, dynamic> data) {
     _subscriber?.call(data);
-  }
-
-  String _generateRequestId() {
-    return "${Random().nextInt(999999)}";
   }
 
   @override
