@@ -23,9 +23,18 @@ Then, run pub get in your terminal to fetch the package.
 Here's a simple example of using BugSnagHttpClient:
 
 ```dart
-import 'package:bugsnag_http_client/bugsnag_http_client.dart';
-void main() async {
-var client = BugSnagHttpClient().withSubscriber(BugsnagPerformance.NetworkInstrumentation);
-var response = await client.get(Uri.parse('https://example.com'));
-}
+
+// Import the wrapper
+import 'package:bugsnag_http_client/bugsnag_http_client.dart' as http;
+
+// add Bugsnag Performance as a subscriber. This only needs to be done once in your apps lifecycle.
+  http.addSubscriber(BugsnagPerformance.networkInstrumentation);
+
+// Requests can be made staticly 
+  http.get(Uri.parse("https://www.google.com"));
+
+// or via a client instance
+  var client = http.BugSnagHttpClient();
+  client.get(Uri.parse("https://www.google.com"));
+
 ```
