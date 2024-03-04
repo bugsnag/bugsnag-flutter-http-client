@@ -5,10 +5,58 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+dynamic Function(dynamic)? _staticSubscriber;
+
+void setSubscriber(dynamic Function(dynamic) callback) {
+  _staticSubscriber = callback;
+}
+
+@override
+Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
+  var client = BugSnagHttpClient();
+  return client.get(url, headers: headers);
+}
+
+Future<http.Response> post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
+  var client = BugSnagHttpClient();
+  return client.post(url, headers: headers, body: body, encoding: encoding);
+}
+
+Future<http.Response> put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
+  var client = BugSnagHttpClient();
+  return client.put(url, headers: headers, body: body, encoding: encoding);
+}
+
+Future<http.Response> delete(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
+  var client = BugSnagHttpClient();
+  return client.delete(url, headers: headers, body: body, encoding: encoding);
+}
+
+Future<http.Response> patch(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
+  var client = BugSnagHttpClient();
+  return client.patch(url, headers: headers, body: body, encoding: encoding);
+}
+
+Future<http.Response> head(Uri url, {Map<String, String>? headers}) async {
+  var client = BugSnagHttpClient();
+  return client.head(url, headers: headers);
+}
+
+Future<String> read(Uri url, {Map<String, String>? headers}) async {
+  var client = BugSnagHttpClient();
+  return client.read(url, headers: headers);
+}
+
+Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
+  var client = BugSnagHttpClient();
+  return client.readBytes(url, headers: headers);
+}
+
+
 class BugSnagHttpClient extends http.BaseClient{
   final http.Client _client;
   dynamic Function(dynamic)? _subscriber;
-  int _requestId = 0;
+  static int _requestId = 0;
 
   BugSnagHttpClient({http.Client? client}) : _client = client ?? http.Client();
 
@@ -50,7 +98,7 @@ class BugSnagHttpClient extends http.BaseClient{
       "request_id": requestId
     });
   }
-
+  
   @override
   Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
     var requestId = _sendRequestStartNotification(url.toString(),"GET");
@@ -157,6 +205,7 @@ class BugSnagHttpClient extends http.BaseClient{
 
   void _notifySubscriber(Map<String, dynamic> data) {
     _subscriber?.call(data);
+    _staticSubscriber?.call(data);
   }
 
   @override
