@@ -5,10 +5,10 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-dynamic Function(dynamic)? _staticSubscriber;
+final _subscribers = <dynamic Function(dynamic)?>[];
 
-void setSubscriber(dynamic Function(dynamic) callback) {
-  _staticSubscriber = callback;
+void addSubscriber(dynamic Function(dynamic)? callback) {
+  _subscribers.add(callback);
 }
 
 @override
@@ -55,7 +55,6 @@ Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
 
 class BugSnagHttpClient extends http.BaseClient{
   final http.Client _client;
-  dynamic Function(dynamic)? _subscriber;
   static int _requestId = 0;
 
   BugSnagHttpClient({http.Client? client}) : _client = client ?? http.Client();
@@ -63,11 +62,6 @@ class BugSnagHttpClient extends http.BaseClient{
   String _generateRequestId() {
     _requestId += 1;
     return "$_requestId";
-  }
-
-  BugSnagHttpClient withSubscriber(dynamic Function(dynamic) callback) {
-    _subscriber = callback;
-    return this;
   }
 
   String _sendRequestStartNotification(String? url,String? method) {
@@ -204,8 +198,9 @@ class BugSnagHttpClient extends http.BaseClient{
   }
 
   void _notifySubscriber(Map<String, dynamic> data) {
-    _subscriber?.call(data);
-    _staticSubscriber?.call(data);
+    for (var subscriber in _subscribers) {
+      subscriber!(data);
+    }
   }
 
   @override
