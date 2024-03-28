@@ -82,14 +82,17 @@ class BugSnagHttpClient extends http.BaseClient{
       "request_id": requestId,
       "http_method": response.request!.method,
       "response_content_length": response.contentLength,
-      "request_content_length": response.request!.contentLength
+      "request_content_length": response.request!.contentLength,
+      "client": _client.runtimeType.toString(),
+      "url": response.request!.url.toString()
     });
   }
 
   void _sendRequestFailedNotification(String requestId) {
     _notifySubscriber({
       "status": "failed",
-      "request_id": requestId
+      "request_id": requestId,
+      "client": _client.runtimeType.toString()
     });
   }
   
