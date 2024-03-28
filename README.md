@@ -49,8 +49,8 @@ import 'package:bugsnag_http_client/bugsnag_http_client.dart' as http;
 ## Support
 
 * [Read the integration guide](https://docs.bugsnag.com/performance/flutter/)
-* [Search open and closed issues](https://github.com/bugsnag/bugsnag-flutter-performance/issues?utf8=✓&q=is%3Aissue) for similar problems
-* [Report a bug or request a feature](https://github.com/bugsnag/bugsnag-flutter-performance/issues/new)
+* [Search open and closed issues](https://github.com/bugsnag/bugsnag-flutter-http-client/issues?utf8=✓&q=is%3Aissue) for similar problems
+* [Report a bug or request a feature](https://github.com/bugsnag/bugsnag-flutter-http-client/issues/new)
 
 ## License
 
