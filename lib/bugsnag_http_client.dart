@@ -13,51 +13,51 @@ void addSubscriber(dynamic Function(dynamic)? callback) {
 
 @override
 Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.get(url, headers: headers);
 }
 
 Future<http.Response> post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.post(url, headers: headers, body: body, encoding: encoding);
 }
 
 Future<http.Response> put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.put(url, headers: headers, body: body, encoding: encoding);
 }
 
 Future<http.Response> delete(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.delete(url, headers: headers, body: body, encoding: encoding);
 }
 
 Future<http.Response> patch(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.patch(url, headers: headers, body: body, encoding: encoding);
 }
 
 Future<http.Response> head(Uri url, {Map<String, String>? headers}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.head(url, headers: headers);
 }
 
 Future<String> read(Uri url, {Map<String, String>? headers}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.read(url, headers: headers);
 }
 
 Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
-  var client = BugSnagHttpClient();
+  var client = Client();
   return client.readBytes(url, headers: headers);
 }
 
 
-class BugSnagHttpClient extends http.BaseClient{
+class Client extends http.BaseClient{
   final http.Client _client;
   static int _requestId = 0;
 
-  BugSnagHttpClient({http.Client? client}) : _client = client ?? http.Client();
+  Client({http.Client? client}) : _client = client ?? http.Client();
 
   String _generateRequestId() {
     _requestId += 1;
