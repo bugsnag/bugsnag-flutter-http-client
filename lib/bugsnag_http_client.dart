@@ -83,7 +83,7 @@ class Client extends http.BaseClient{
       "http_method": response.request!.method,
       "response_content_length": response.contentLength,
       "request_content_length": response.request!.contentLength,
-      "client": _client.runtimeType.toString(),
+      "client": 'package:http',
       "url": response.request!.url.toString()
     });
   }
