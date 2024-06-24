@@ -14,6 +14,11 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.1.0
+  bugsnag_bridge:
+    git: # TODO: Replace once bugsnag_bridge is published
+      url: https://github.com/bugsnag/bugsnag-flutter-common
+      ref: robert/bugsnag-flutter-bridge
+      path: packages/bugsnag-flutter-bridge
 
 dev_dependencies:
   flutter_test:
