@@ -70,7 +70,7 @@ class Client extends http.BaseClient {
   }
 
   String _sendRequestStartNotification(String? url, String? method) {
-    var requestId = _generateRequestId();
+    final requestId = _generateRequestId();
     _notifySubscriber({
       "url": url,
       "status": "started",
@@ -104,17 +104,15 @@ class Client extends http.BaseClient {
 
   @override
   Future<http.Response> get(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "GET");
+    final requestId = _sendRequestStartNotification(url.toString(), "GET");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await _client.get(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
       return response;
@@ -127,17 +125,15 @@ class Client extends http.BaseClient {
   @override
   Future<http.Response> post(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "POST");
+    final requestId = _sendRequestStartNotification(url.toString(), "POST");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await _client.post(url,
           headers: allHeaders, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -151,17 +147,15 @@ class Client extends http.BaseClient {
   @override
   Future<http.Response> put(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "PUT");
+    final requestId = _sendRequestStartNotification(url.toString(), "PUT");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await _client.put(url,
           headers: allHeaders, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -175,17 +169,15 @@ class Client extends http.BaseClient {
   @override
   Future<http.Response> delete(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "DELETE");
+    final requestId = _sendRequestStartNotification(url.toString(), "DELETE");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await _client.delete(url,
           headers: allHeaders, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -199,17 +191,15 @@ class Client extends http.BaseClient {
   @override
   Future<http.Response> patch(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "PATCH");
+    final requestId = _sendRequestStartNotification(url.toString(), "PATCH");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await _client.patch(url,
           headers: allHeaders, body: body, encoding: encoding);
       _sendRequestCompleteNotification(requestId, response);
@@ -222,17 +212,15 @@ class Client extends http.BaseClient {
 
   @override
   Future<http.Response> head(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "HEAD");
+    final requestId = _sendRequestStartNotification(url.toString(), "HEAD");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await _client.head(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
       return response;
@@ -244,17 +232,15 @@ class Client extends http.BaseClient {
 
   @override
   Future<String> read(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "READ");
+    final requestId = _sendRequestStartNotification(url.toString(), "READ");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await get(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
       return response.body;
@@ -266,17 +252,15 @@ class Client extends http.BaseClient {
 
   @override
   Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
-    var requestId = _sendRequestStartNotification(url.toString(), "READ");
+    final requestId = _sendRequestStartNotification(url.toString(), "READ");
     try {
-      var allHeaders = headers ?? {};
-      _headersProvider
-          .requestHeaders(
-        url: url.toString(),
-        requestId: requestId,
-      )
-          ?.forEach((key, value) {
-        allHeaders[key] = value;
-      });
+      final allHeaders = {
+        ...?headers,
+        ...?_headersProvider.requestHeaders(
+          url: url.toString(),
+          requestId: requestId,
+        ),
+      };
       var response = await get(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
       return response.bodyBytes;
@@ -294,22 +278,22 @@ class Client extends http.BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
-    var requestId = _sendRequestStartNotification(
+    final requestId = _sendRequestStartNotification(
         request.url.toString(), request.method.toUpperCase());
     try {
       var streamedResponse = await _client.send(request);
       streamedResponse.stream.toBytes().then((bytes) {
         _sendRequestCompleteNotification(
-            requestId,
-            http.Response.bytes(
-              bytes,
-              streamedResponse.statusCode,
-              request: request,
-              headers: streamedResponse.headers,
-              isRedirect: streamedResponse.isRedirect,
-              persistentConnection: streamedResponse.persistentConnection,
-              reasonPhrase: streamedResponse.reasonPhrase,
-            ),
+          requestId,
+          http.Response.bytes(
+            bytes,
+            streamedResponse.statusCode,
+            request: request,
+            headers: streamedResponse.headers,
+            isRedirect: streamedResponse.isRedirect,
+            persistentConnection: streamedResponse.persistentConnection,
+            reasonPhrase: streamedResponse.reasonPhrase,
+          ),
         );
       });
       return streamedResponse;
