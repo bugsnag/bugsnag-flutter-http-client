@@ -309,7 +309,8 @@ class Client extends http.BaseClient {
               isRedirect: streamedResponse.isRedirect,
               persistentConnection: streamedResponse.persistentConnection,
               reasonPhrase: streamedResponse.reasonPhrase,
-            ));
+            ),
+        );
       });
       return streamedResponse;
     } catch (e) {
