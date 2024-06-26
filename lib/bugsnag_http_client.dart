@@ -108,10 +108,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await _client.get(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
@@ -129,10 +129,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await _client.post(url,
           headers: allHeaders, body: body, encoding: encoding);
@@ -151,10 +151,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await _client.put(url,
           headers: allHeaders, body: body, encoding: encoding);
@@ -173,10 +173,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await _client.delete(url,
           headers: allHeaders, body: body, encoding: encoding);
@@ -195,10 +195,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await _client.patch(url,
           headers: allHeaders, body: body, encoding: encoding);
@@ -216,10 +216,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await _client.head(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
@@ -236,10 +236,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await get(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
@@ -256,10 +256,10 @@ class Client extends http.BaseClient {
     try {
       final allHeaders = {
         ...?headers,
-        ...?_headersProvider.requestHeaders(
+        ...?(await _headersProvider.requestHeaders(
           url: url.toString(),
           requestId: requestId,
-        ),
+        )),
       };
       var response = await get(url, headers: allHeaders);
       _sendRequestCompleteNotification(requestId, response);
